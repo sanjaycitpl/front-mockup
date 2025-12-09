@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATLANTIS // OS</title>
+    <style>
+        /* --- 1. THE PHYSICS (Variables) --- */
+        :root {
+            --void: #050505;
+            --gold: #D4AF37;
+            --gold-dim: rgba(212, 175, 55, 0.3);
+            --blue-abyss: #001A33;
+            --blue-glow: rgba(0, 68, 255, 0.4);
+            --text-main: #E0E0E0;
+            
+            --ease-luxury: cubic-bezier(0.2, 0.0, 0.0, 1.0); /* Sharp start, slow end */
+        }
+
+        /* --- 2. THE RESET --- */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            background-color: var(--void);
+            color: var(--gold);
+            font-family: 'Courier New', monospace; /* Placeholder for JetBrains Mono */
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* --- 3. THE FRAME (The 40px Inset) --- */
+        .os-frame {
+            position: fixed;
+            top: 40px; left: 40px; right: 40px; bottom: 40px;
+            border: 1px solid var(--gold);
+            z-index: 10;
+            pointer-events: none; /* Let clicks pass through to center */
+        }
+
+        /* The Corner Nodes (Decoration) */
+        .os-frame::before, .os-frame::after {
+            content: ''; position: absolute; width: 100%; height: 10px;
+            border-left: 2px solid var(--gold);
+            border-right: 2px solid var(--gold);
+        }
+        .os-frame::before { top: -1px; }
+        .os-frame::after { bottom: -1px; }
+
+        /* --- 4. THE ATLANTEAN SEAL (Geometric CSS) --- */
+        .seal-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 1.5s var(--ease-luxury), opacity 0.5s;
+        }
+
+        /* The Rings */
+        .ring {
+            position: absolute;
+            border: 1px solid var(--gold);
+            box-shadow: 0 0 15px var(--blue-glow);
+            transition: all 0.5s;
+        }
+
+        .ring-1 { width: 100%; height: 100%; animation: rotate-cw 60s linear infinite; }
+        .ring-2 { width: 70%; height: 70%; border-color: var(--gold-dim); animation: rotate-ccw 40s linear infinite; transform: rotate(45deg); }
+        .ring-3 { width: 40%; height: 40%; border-radius: 50%; border: 1px dashed var(--gold); animation: rotate-cw 20s linear infinite; }
+
+        /* The Core */
+        .core {
+            width: 10px; height: 10px; background: var(--gold);
+            box-shadow: 0 0 20px var(--gold);
+        }
+
+        /* --- 5. THE UI DATA --- */
+        .ui-layer {
+            position: absolute;
+            bottom: 15%;
+            text-align: center;
+            width: 100%;
+            transition: opacity 0.8s;
+        }
+
+        .status-text {
+            font-size: 10px;
+            letter-spacing: 3px;
+            color: var(--gold-dim);
+            margin-bottom: 30px;
+            animation: pulse 4s infinite;
+        }
+
+        /* --- 6. THE BUTTON (Interaction) --- */
+        .initiate-btn {
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 15px 40px;
+            font-size: 14px;
+            letter-spacing: 0.3em;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .initiate-btn:hover {
+            background: var(--gold);
+            color: var(--void);
+            box-shadow: 0 0 30px var(--blue-glow);
+        }
+
+        /* --- 7. ANIMATIONS --- */
+        @keyframes rotate-cw { 100% { transform: rotate(360deg); } }
+        @keyframes rotate-ccw { 100% { transform: rotate(-360deg); } }
+        @keyframes pulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+
+        /* --- 8. STATE: INITIATION (The Portal Effect) --- */
+        body.entering .seal-container {
+            transform: scale(20) rotate(90deg); /* Zoom into the portal */
+            opacity: 0;
+            transition: transform 2s cubic-bezier(0.7, 0, 0.3, 1), opacity 1.8s ease-in;
+        }
+        
+        body.entering .ui-layer {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        body.entering .os-frame {
+            opacity: 0;
+            transition: opacity 1s;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="os-frame"></div>
+
+    <div class="seal-container">
+        <div class="ring ring-1"></div> <div class="ring ring-2"></div> <div class="ring ring-3"></div> <div class="core"></div>        </div>
+
+    <div class="ui-layer">
+        <div class="status-text">SYSTEM_READY // AWAITING_INPUT</div>
+        <button class="initiate-btn" onclick="initiateSequence()">Initiate</button>
+    </div>
+
+    <script>
+        function initiateSequence() {
+            // 1. Lock the interface
+            document.body.classList.add('entering');
+            
+            // 2. Play Audio (Optional placeholder)
+            // const audio = new Audio('hum_frequency.mp3');
+            // audio.play();
+
+            // 3. Navigate (Simulated delay)
+            setTimeout(() => {
+               console.log("Navigation to Question 01");
+               // window.location.href = "screen2.html";
+            }, 2500);
+        }
+    </script>
+</body>
+</html>
